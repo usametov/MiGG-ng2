@@ -1,0 +1,28 @@
+p {
+    margin: 2px 0;
+
+  }
+
+  a {
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .title {
+    font-size: 16px;
+    font-family: Verdana, Geneva, sans-serif;
+  }
+
+  .subtext-laptop {
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0.5px;    
+  }
+
+  .subtext-laptop a a:hover {
+        text-decoration: underline;
+  }   
+
+  .item-details {
+    padding: 10px;
+  }

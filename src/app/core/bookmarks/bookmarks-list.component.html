@@ -1,0 +1,24 @@
+<div class="main-content">
+
+  <div *ngIf="items">
+    <ol>
+      <li *ngFor="let bookmark of items" class="post">
+        <item class="item-block" [item]="bookmark"></item>
+      </li>
+    </ol>
+    <div class="nav">
+      <a *ngIf="skip >= 10" [routerLink]="['/', tagBundleName, skipPrev]" 
+              routerLinkActive="active" class="prev">
+        ‹ Prev
+      </a>
+      <a *ngIf="items.length === 10" 
+              [routerLink]="['/', tagBundleName, skipNext]" 
+              routerLinkActive="active" class="more">
+        More ›
+      </a>
+    </div>    
+  </div>
+  <div class="errorMessage">
+    {{errorMessage}}
+  </div>
+</div>

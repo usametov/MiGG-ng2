@@ -1,0 +1,18 @@
+<div [ngStyle]="{'margin-bottom': settings.listSpacing+'px'}">
+  <p *ngIf="hasUrl">
+    <a class="title" [ngStyle]="{'font-size': settings.titleFontSize+'px'}" href="{{item.linkUrl}}" target='_blank'>
+      {{item.linkText}}
+    </a>    
+  </p>
+  <p *ngIf="!hasUrl">
+    <a class="title" [ngStyle]="{'font-size': settings.titleFontSize+'px'}">
+      {{item.linkText}}
+    </a>
+  </p>
+  <div class="subtext-laptop">
+    <div class="details">    
+      <span class="right">{{item.rank}} ★</span>
+      <!--TODO add tags here-->
+    </div>    
+  </div>  
+</div>
