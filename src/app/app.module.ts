@@ -7,6 +7,7 @@ import { EffectsModule } from "@ngrx/effects";
 //import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
 
 import { CoreModule } from './core/core.module';
+import { RouterModule } from '@angular/router';
 import { routing } from './app.routes';
 import { AppComponent } from './app.component';
 import {PageNotFoundComponent} from './pageNotFound.component';
@@ -25,7 +26,8 @@ import {reducers /*, metaReducers*/} from "./states/reducers";
     StoreModule.forRoot(reducers/*, {metaReducers}*/),
     routing,    
     //StoreRouterConnectingModule,
-    CoreModule,
+    CoreModule,    
+    RouterModule,
     //Note that you must instrument after importing StoreModule
     StoreDevtoolsModule.instrument({
       maxAge: 10 //  Retains last 10 states

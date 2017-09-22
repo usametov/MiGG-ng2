@@ -24,7 +24,7 @@ export class ApiService {
   }
   
   private checkForError(response: Response): Either<ServerError, any> {
-    console.log("check4err", response.status);    
+    //console.log("check4err", response);    
     return response.status >= 200 && response.status < 300 ? 
        Either.right<ServerError, any>(this.getJson(response)) :
        Either.left<ServerError, any>(new ServerError(response.status,response.statusText));          

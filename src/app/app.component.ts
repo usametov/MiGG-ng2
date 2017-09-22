@@ -7,6 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  title: string = "Bookmarks App";
   //   constructor(public router: Router) {
     
   //   this.router.events.subscribe(event => {
