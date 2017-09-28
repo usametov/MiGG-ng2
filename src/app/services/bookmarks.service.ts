@@ -14,14 +14,14 @@ export class BookmarksService {
   path: string = '/bookmarks';
   constructor(private apiService: ApiService) {}
 
-  getBookmarksByTagBundle(req: BookmarksByTagBundle) : Observable<BookmarksReply> { 
+  getBookmarksByTagBundle(req: BookmarksByTagBundle) : Observable<BookmarksReply> {
                                 
     return this.apiService.get
       (`${this.path}/${req.tagBundleName}/${req.skip}/${req.take}`)
         .map(ei => //the 'right' response should be converted to Bookmarks list
-          ei.bind(boo => Either.right<ServerError, Bookmark[]>
-                    (boo.map(_b =>{ _b as Bookmark })))); 
-          //this is for debugging only                
-          //.do((res: any) => console.log('getBookmarksByTagBundle', res));
-  }  
+          ei.bind(bookma => Either.right<ServerError, Bookmark[]>
+            (bookma.map(_b =>{ _b as Bookmark }))));           
+            //.do((res: any) => console.log('getBookmarksByTagBundle', res));
+  }
+ 
 }

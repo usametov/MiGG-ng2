@@ -12,7 +12,7 @@ import { routing } from './app.routes';
 import { AppComponent } from './app.component';
 import {PageNotFoundComponent} from './pageNotFound.component';
 import { BookmarksService, ApiService, AuthService }  from './services';
-import {reducers /*, metaReducers*/} from "./states/reducers";
+import {reducers} from "./states/reducers";
 
 @NgModule({
   declarations: [
@@ -23,7 +23,7 @@ import {reducers /*, metaReducers*/} from "./states/reducers";
     BrowserModule,    
     HttpModule,
     //StoreModule.forRoot({ routerReducer: routerReducer }),
-    StoreModule.forRoot(reducers/*, {metaReducers}*/),
+    StoreModule.forRoot(reducers),
     routing,    
     //StoreRouterConnectingModule,
     CoreModule,    
