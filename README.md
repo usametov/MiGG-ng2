@@ -78,7 +78,7 @@ describe ("invoke service", ()=> {
 });
 ```
 [bookmarks.effects.ts](https://github.com/usametov/MiGG-ng2/blob/master/src/app/states/effects/bookmarks.effects.ts)
-This is effects code, which was modified to build command object using _action_ instance and pass it to service helper.
+This is effects code, which was modified to build command object using _action_ instance and pass it to service helper. Note, here we return Reply instance, which is constructed using _BookmarksReply_.But this can be further improved by parameterizing return type. e.g. server might want to return "OK-type of response" when client updates the database.        
 ```
 @Effect()
   requestBookmarksGeneric$ = 
