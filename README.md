@@ -60,6 +60,49 @@ export const bookmarksActionDispatcher: { [action: string] : string } = {
 }
 ```
 
+[api.service.ts](https://github.com/usametov/MiGG-ng2/blob/master/src/app/services/api.service.ts)
+Here we are dealing with server response. Good response status should be in the range 200-300, everything else means bad response. This translates to _either_ ServerError or any.
+```
+private checkForError(response: Response): Either<ServerError, any> {
+    //console.log("check4err", response);    
+    return response.status >= 200 && response.status < 300 ? 
+       Either.right<ServerError, any>(this.getJson(response)) :
+       Either.left<ServerError, any>(new ServerError(response.status,response.statusText));          
+  }
+  
+  get(path: string): Observable<Either<ServerError, any>> {
+    
+    return this.http.get(`${BASE_URL}${path}`, { headers: this.headers })
+      .map((res) => this.checkForError(res))
+      .catch((err, cought) => {
+
+        let errMsg = err.statusText == '' ? 
+          "server is not available" :
+          err.statusText;
+
+        return Observable.of(Either.left<ServerError, any>(new ServerError(0,errMsg)));        
+    });
+  }
+```
+[bookmarks.service.ts](https://github.com/usametov/MiGG-ng2/blob/master/src/app/services/bookmarks.service.ts)
+Here is how to deal with _Either_ monad:
+_right_ _ Either_ will be converted to strongly typed container.
+Note, that we don't need to touch _left_ case.
+The _left_ case behaves like teenager, it rolls his eyes and doesn't do anything :)  
+```
+constructor(private apiService: ApiService) {}
+
+  getBookmarksByTagBundle(req: BookmarksByTagBundle) : Observable<BookmarksReply> {
+                                
+    return this.apiService.get
+      (`${this.path}/${req.tagBundleName}/${req.skip}/${req.take}`)
+        .map(ei => //the 'right' response should be converted to Bookmarks list
+          ei.bind(bookma => Either.right<ServerError, Bookmark[]>
+            (bookma.map(_b =>{ _b as Bookmark }))));              
+  }
+```
+
+
 Below are standard instructions for Angular projects.
 
 ## Development server
