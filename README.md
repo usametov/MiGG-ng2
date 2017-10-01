@@ -86,7 +86,7 @@ private checkForError(response: Response): Either<ServerError, any> {
 ```
 [bookmarks.service.ts](https://github.com/usametov/MiGG-ng2/blob/master/src/app/services/bookmarks.service.ts)
 Here is how to deal with _Either_ monad:
-_right_ _ Either_ will be converted to strongly typed container.
+_right_ _Either_ will be converted to strongly typed container.
 Note, that we don't need to touch _left_ case.
 The _left_ case behaves like teenager, it rolls his eyes and doesn't do anything :)  
 ```
