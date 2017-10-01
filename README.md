@@ -32,6 +32,51 @@ export function invokeService<T>(service, methodName: string, payload: any){
 }
 ```
 
+[here is how we test Command Object](https://github.com/usametov/MiGG-ng2/blob/master/src/app/states/effects/service.helper.spec.ts)
+These are isolated tests, they run fast and are easy to write, as opposed to angular tests. I remember having troubles to run my first ngrx/effects test. I had to spend a lot of time to fix my bad karma setup.  
+```
+describe ("invoke service", ()=> {
+
+  var apiService, bookmarksService;
+  var mockData = [ {                    
+    "Description": "",
+    "Id": "57146c5f083989dcf1e69c44",
+    "LinkText": "An OpenSSL Users Guide to DROWN - OpenSSL Blog",
+    "LinkUrl": "https://www.openssl.org/blog/blog/2016/03/01/an-openssl-users-guide-to-drown/",
+    "Tags": [
+        "cryptography",
+        "openssl"
+    ]}];
+
+  beforeEach(()=>{
+    
+    apiService = jasmine.createSpyObj<ApiService>("ApiService", ["get","post"]);
+    bookmarksService = new BookmarksService(apiService);
+  });
+
+  it("should call getBookmarksByTagBundle", (done)=>{
+
+    var req = new BookmarksByTagBundle();
+    var result: Bookmark[];
+    
+    spyOn(bookmarksService, "getBookmarksByTagBundle")
+      .and.returnValue(Observable.of(Either.right<ServerError, Bookmark[]>(mockData)));
+
+    var reply = invokeService<Observable<BookmarksReply>>
+      (bookmarksService, "getBookmarksByTagBundle", req);
+
+    reply.subscribe(resp => resp.caseOf({
+      left: result = null,
+      right: boo => {result = boo}
+      }));
+
+    expect(bookmarksService.getBookmarksByTagBundle).toHaveBeenCalled();
+    expect(result).toEqual(mockData);
+    done();
+  });  
+
+});
+```
 [bookmarks.effects.ts](https://github.com/usametov/MiGG-ng2/blob/master/src/app/states/effects/bookmarks.effects.ts)
 This is effects code, which was modified to build command object using _action_ instance and pass it to service helper.
 ```
