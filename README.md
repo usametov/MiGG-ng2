@@ -88,7 +88,7 @@ private checkForError(response: Response): Either<ServerError, any> {
 Here is how to deal with _Either_ monad:
 _right_ _Either_ will be converted to strongly typed container.
 Note, that we don't need to touch _left_ case.
-The _left_ case behaves like teenager, it rolls his eyes and doesn't do anything :)  
+The _left_ case behaves like teenager, he rolls his eyes and doesn't do anything :)  
 ```
 constructor(private apiService: ApiService) {}
 
@@ -101,6 +101,9 @@ constructor(private apiService: ApiService) {}
             (bookma.map(_b =>{ _b as Bookmark }))));              
   }
 ```
+
+For more information on _Either_ and _Maybe_ monads I recommend to check out [Prof. Frisby's 'mostly adequate guide to functional programming'](https://github.com/MostlyAdequate/mostly-adequate-guide/). You could also search  his videos on Youtube and Egghead.
+
 
 
 Below are standard instructions for Angular projects.
