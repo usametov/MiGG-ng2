@@ -1,45 +1,18 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
-import {Observable} from 'rxjs/Observable';
-import {CanActivate, Router} from '@angular/router';
-import 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
+import { JWT_KEY } from "./constants";
 
 @Injectable()
-export class AuthService implements CanActivate {
-  JWT_KEY: string = 'retain_token';
-  JWT: string = '';
-
+export class AuthService {
+  
   constructor(
-     private api: ApiService,
-     private router: Router) {
-
-    const token = window.localStorage.getItem(this.JWT_KEY);
-    if (token) {
-      this.setJwt(token);
-    }
-  }
+     private api: ApiService) { }
 
   setJwt(jwt: string) {
-    window.localStorage.setItem(this.JWT_KEY, jwt);
-    this.api.setHeaders({Authorization: `Bearer ${jwt}`});
+    window.localStorage.setItem(JWT_KEY, jwt);   
   }
-
-  isAuthorized(): boolean {
-    return Boolean(window.localStorage.getItem(this.JWT_KEY)); 
-  }
-
-  canActivate(): boolean {
-    const canActivate = this.isAuthorized();
-    this.onCanActivate(canActivate);
-    return canActivate;
-  }
-
-  onCanActivate(canActivate: boolean) {
-    if (!canActivate) {
-      this.router.navigate(['', 'auth']);
-    }
-  }
-
+  
   authenticate(path, creds): Observable<any> {
     return this.api.post(`/${path}`, creds)
       .do((res: any) => this.setJwt(res.token))
@@ -47,7 +20,6 @@ export class AuthService implements CanActivate {
   }
 
   signout() {
-    window.localStorage.removeItem(this.JWT_KEY);    
-    this.router.navigate(['', 'auth']);
+    window.localStorage.removeItem(JWT_KEY);        
   }
 }

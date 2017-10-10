@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { CoreModule } from "app/core/core.module";
 import { BookmarksService, ApiService, AuthService } from "app/services";
-import { HttpModule, XHRBackend } from "@angular/http";
+import { HttpModule, XHRBackend, Http, BaseRequestOptions, RequestOptions, ConnectionBackend } from "@angular/http";
 import { StoreModule } from "@ngrx/store";
 import {reducers /*, metaReducers*/} from "./states/reducers";
 import { routing } from './app.routes';
@@ -11,9 +11,19 @@ import { EffectsModule } from "@ngrx/effects";
 import {PageNotFoundComponent} from './pageNotFound.component';
 import { APP_BASE_HREF } from '@angular/common';
 import { MockBackend } from '@angular/http/testing';
+import { ReflectiveInjector } from '@angular/core';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
+
+    this.injector = ReflectiveInjector.resolveAndCreate([
+      {provide: ConnectionBackend, useClass: MockBackend},
+      {provide: RequestOptions, useClass: BaseRequestOptions},
+      Http,
+      ApiService,
+    ]);
+    const apiService =  this.injector.get(ApiService);
+
     TestBed.configureTestingModule({
       declarations: [
         AppComponent,
@@ -28,11 +38,13 @@ describe('AppComponent', () => {
          routing
         ],
 
-      providers: [ BookmarksService,
-                  ApiService, 
-                  AuthService,
-                 { provide: APP_BASE_HREF, useValue : '/' },
-                 { provide: XHRBackend, useClass: MockBackend } ],
+      providers: [
+                  { provide: APP_BASE_HREF, useValue : '/' },
+                  { provide: XHRBackend, useClass: MockBackend },
+                  { provide: ApiService, useValue: apiService}, 
+                    BookmarksService,                 
+                    AuthService
+                 ],
     }).compileComponents();
   }));
 
