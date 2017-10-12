@@ -7,10 +7,12 @@ import { Observable } from "rxjs/Observable";
 import {BookmarksReply} from "../../states/actions/bookmarks";
 import { ServerError } from "app/models/server-error";
 import { Bookmark } from "app/models/bookmark";
+import 'rxjs/add/observable/of';
 
 describe ("invoke service", ()=> {
 
-  var apiService, bookmarksService;
+  var apiService;
+  var bookmarksService : BookmarksService;
   var mockData = [ {                    
     "Description": "",
     "Id": "57146c5f083989dcf1e69c44",
@@ -23,8 +25,10 @@ describe ("invoke service", ()=> {
 
   beforeEach(()=>{
     
-    apiService = jasmine.createSpyObj<ApiService>("ApiService", ["get","post"]);
-    bookmarksService = new BookmarksService(apiService);
+    apiService = jasmine.createSpyObj<ApiService>("ApiService"
+      , ["get","post", "delete", "refreshAuthToken"]);
+      
+    bookmarksService = new BookmarksService(apiService);        
   });
 
   it("should call getBookmarksByTagBundle", (done)=>{

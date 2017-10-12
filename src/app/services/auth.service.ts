@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
 import { Observable } from 'rxjs/Observable';
 import { JWT_KEY } from "./constants";
+import 'rxjs/add/operator/do';
 
 @Injectable()
 export class AuthService {
@@ -15,7 +16,7 @@ export class AuthService {
   
   authenticate(path, creds): Observable<any> {
     return this.api.post(`/${path}`, creds)
-      .do((res: any) => this.setJwt(res.token))
+      .do((res: any) => this.setJwt(res.token))//TODO: move this to effects
       .map((res: any) => res.data);
   }
 

@@ -9,7 +9,6 @@ import { BookmarksStore } from "./../states/bookmarks.store";
 import { StoreModule } from "@ngrx/store";
 import { EffectsModule } from '@ngrx/effects';
 import {BookmarksEffects} from "./../states/effects/bookmarks.effects";
-//import {reducer} from "./../states/reducers";
 
 
 @NgModule({

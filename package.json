@@ -26,7 +26,6 @@
     "@ngrx/store-devtools": "^4.0.0",
     "class-transformer": "^0.1.7",
     "core-js": "^2.4.1",
-    "mori": "^0.3.2",
     "rxjs": "^5.4.2",
     "tsmonad": "^0.7.2",
     "zone.js": "^0.8.4"

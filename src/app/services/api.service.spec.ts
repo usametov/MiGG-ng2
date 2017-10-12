@@ -64,11 +64,15 @@ describe('Service: Api', () => {
     this.backend.connections.subscribe((connection: MockConnection) => {
         this.lastConnection = connection;
     });
+
+    spyOn(this.apiService, "refreshAuthToken");
   });
 
   it('should call proper url for security bookmarks', (done) => {
 
-    let res = this.apiService.get(`${BASE_URL}/security/0/10`);    
+    let res = this.apiService.get(`${BASE_URL}/security/0/10`); 
+    
+    expect(this.apiService.refreshAuthToken).toHaveBeenCalled();   
     expect(this.lastConnection).toBeDefined('no http service connection at all?');
     expect(this.lastConnection.request.url).toMatch(`${BASE_URL}/security/0/10`, 'url invalid');
 
@@ -91,6 +95,7 @@ describe('Service: Api', () => {
       status: 200
     })));
 
+    expect(this.apiService.refreshAuthToken).toHaveBeenCalled();   
     expect(result).toBeTruthy();  
     expect(result.length).toEqual(3, 'should contain given amount of bookmarks');
     expect(result[0].LinkText).toContain("OpenSSL", 'first bookmark is about OpenSSL');     

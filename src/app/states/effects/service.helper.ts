@@ -1,4 +1,3 @@
- import { Action } from "@ngrx/store";
 
 // this is an implementation of command object design pattern
 export function invokeService<T>(service, methodName: string, payload: any){

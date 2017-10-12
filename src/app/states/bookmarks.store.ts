@@ -9,6 +9,8 @@ import { BookmarksReply} from "./actions/bookmarks";
 import { ActionTypes, RequestByTagBundle } from "app/states/actions/bookmarks";
 import { ServerError } from "app/models/server-error";
 import {ResponseStatus} from '../models/response.status';
+import 'rxjs/add/operator/distinctUntilKeyChanged';
+
 
 @Injectable()
 export class BookmarksStore implements StoreInterface<BookmarksState> {
@@ -37,11 +39,8 @@ export class BookmarksStore implements StoreInterface<BookmarksState> {
     //state.data is either ServerError or valid response
     return this.getState()
       .filter(state=>state.status !== ResponseStatus.Pending)
-      //store.select is supposed to get distinct values, 
-      //but it doesn't do it out of box though, 
-      //it still needs comparer function for that.  
       .distinctUntilKeyChanged("status")      
-      .do(res => console.log("trying to get bookmarks", res)); //for debugging only     
+      //.do(res => console.log("trying to get bookmarks", res)); //for debugging only     
   }
     
   
