@@ -2,7 +2,6 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/switchMap';
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { RequestByTagBundle, ActionTypes, BookmarksReply, Reply, BookmarkActions } 
   from "../actions/bookmarks"; 
@@ -21,17 +20,7 @@ export class BookmarksEffects {
   constructor(private bookmarksService: BookmarksService,
               private actions$: Actions) {      
   }  
-
-  //by the book implementation
-  // @Effect() 
-  // requestBookmarks$ /*: Observable<BookmarkActions>*/ = 
-  //   this.actions$.ofType(ActionTypes.REQUEST_BOOKMARKS_BY_TAG_BUNDLE)      
-  //   .map(toPayload)
-  //   .switchMap((pl: BookmarksByTagBundle) => 
-  //     this.bookmarksService.getBookmarksByTagBundle(pl)  
-  //       .map(reply => new Reply(reply))
-  //   );
-
+  
   @Effect()
   requestBookmarksGeneric$ = 
     this.actions$.filter((action: Action) => 
