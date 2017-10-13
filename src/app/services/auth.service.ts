@@ -3,10 +3,17 @@ import { ApiService } from './api.service';
 import { Observable } from 'rxjs/Observable';
 import { JWT_KEY } from "./constants";
 import 'rxjs/add/operator/do';
+import { UserCredentials } from 'app/models/user-credentials';
+import { TokenResponse } from 'app/models/ok-response';
+import { ServerError } from 'app/models/server-error';
+import { Either } from 'tsmonad';
+import { AuthReply } from 'app/states/actions/users';
 
 @Injectable()
 export class AuthService {
   
+  path: string = "/login";
+
   constructor(
      private api: ApiService) { }
 
@@ -14,10 +21,11 @@ export class AuthService {
     window.localStorage.setItem(JWT_KEY, jwt);   
   }
   
-  authenticate(path, creds): Observable<any> {
-    return this.api.post(`/${path}`, creds)
-      .do((res: any) => this.setJwt(res.token))//TODO: move this to effects
-      .map((res: any) => res.data);
+  authenticate(creds: UserCredentials): Observable<AuthReply> {
+    return this.api.post(`/${this.path}`, creds)      
+    .map(ei => //the 'right' response should be converted to TokenResponse
+      ei.bind(res => Either.right<ServerError, TokenResponse>
+        (res.map(_res => _res.token))));         
   }
 
   signout() {
