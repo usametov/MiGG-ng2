@@ -52,7 +52,7 @@ export class ApiService {
     });
   }
     
-  post( path: string, body): Observable<any> {
+  post( path: string, body): Observable<Either<ServerError, any>> {
     
     this.refreshAuthToken();
 

@@ -25,7 +25,7 @@ export class AuthService {
     return this.api.post(`/${this.path}`, creds)      
     .map(ei => //the 'right' response should be converted to TokenResponse
       ei.bind(res => Either.right<ServerError, TokenResponse>
-        (res.map(_res => _res.token))));         
+        (res as TokenResponse)));         
   }
 
   signout() {

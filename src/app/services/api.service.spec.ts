@@ -1,5 +1,4 @@
 import {Injectable, ReflectiveInjector} from '@angular/core';
-import {async, fakeAsync, tick} from '@angular/core/testing';
 import {  
   Response, ResponseOptions, 
   BaseRequestOptions, ConnectionBackend, Http,
