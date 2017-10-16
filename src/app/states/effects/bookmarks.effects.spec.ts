@@ -44,7 +44,7 @@ describe('Bookmarks Effects', () => {
     effects = TestBed.get(BookmarksEffects);
   });
   
-  it('should call  getBookmarksByTagBundle', () => {
+  it('should call  getBookmarksByTagBundle', (done) => {
    
     bookmarksService.getBookmarksByTagBundle
       .and.returnValue(Observable.of(Either.right<ServerError, Bookmark[]>(mockData)));
@@ -57,5 +57,7 @@ describe('Bookmarks Effects', () => {
     effects.requestBookmarksGeneric$.subscribe(result => {
       expect(result).toEqual(new Reply(Either.right(mockData)));
     });
+
+    done();
   });  
 });
