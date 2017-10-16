@@ -32,4 +32,21 @@ describe("auth service", () => {
     
     done();
   });
+
+  it("should report logon failure", (done) => {
+
+    let errorMessage = "invalid username/password";
+    let errMsg: string;
+
+    apiService.post.and.returnValue(
+      Observable.of(Either.left(new ServerError(401, errorMessage))));
+
+      authService.authenticate(dummyUser).subscribe(ei=>ei.caseOf({
+        left: err => errMsg = err.errorMessage,
+        right: t => result = t
+      }));
+            
+      expect(errMsg).toBe(errorMessage);
+      done();  
+  });
 });
