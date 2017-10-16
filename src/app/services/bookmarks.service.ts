@@ -19,9 +19,8 @@ export class BookmarksService {
     return this.apiService.get
       (`${this.path}/${req.tagBundleName}/${req.skip}/${req.take}`)
         .map(ei => //the 'right' response should be converted to Bookmarks list
-          ei.bind(bookma => Either.right<ServerError, Bookmark[]>
-            (bookma.map(_b =>{ _b as Bookmark }))));           
-            //.do((res: any) => console.log('getBookmarksByTagBundle', res));
+          ei.bind(boo => Either.right<ServerError, Bookmark[]>(boo)));
+          //.do((res: any) => console.log('getBookmarksByTagBundle', res));
   }
  
 }
