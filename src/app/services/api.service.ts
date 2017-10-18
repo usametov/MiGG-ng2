@@ -7,6 +7,7 @@ import { BASE_URL } from "./constants";
 import { ServerError } from "../models/server-error";
 import { Either } from "tsmonad";
 import { JWT_KEY } from "./constants";
+import 'rxjs/add/observable/of';
 
 @Injectable()
 export class ApiService {

@@ -18,6 +18,12 @@ describe("auth service", () => {
      authService = new AuthService(apiService);
   });
 
+  it("should logoff", (done) => {
+
+    authService.signout();
+    done();
+  });
+
   it("should authenticate", (done) => {
 
     apiService.post.and.returnValue(Observable.of(Either.right(dummyToken)));

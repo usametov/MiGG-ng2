@@ -17,6 +17,10 @@ export class AuthService {
   constructor(
      private api: ApiService) { }
 
+  isAuthenticated() {    
+    return Boolean(window.localStorage.getItem(JWT_KEY));
+  } 
+
   setJwt(jwt: string) {
     window.localStorage.setItem(JWT_KEY, jwt);   
   }

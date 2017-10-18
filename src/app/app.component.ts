@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-//import { Router, NavigationEnd } from '@angular/router';
+import { AuthService } from "./services/auth.service";
 
 @Component({
   selector: 'app-root',
@@ -8,14 +8,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title: string = "Bookmarks App";
-  //   constructor(public router: Router) {
-    
-  //   this.router.events.subscribe(event => {
-  //     //if (event instanceof NavigationEnd) {
-  //       // ga('set', 'page', event.urlAfterRedirects);
-  //       // ga('send', 'pageview');        
-  //     //}
-  //     console.log('router event', event);        
-  //   });
-  // }
+  isAuthenticated: boolean = false;
+
+   constructor(public authService: AuthService) {
+    //TODO: should we use a store here?
+    this.isAuthenticated = authService.isAuthenticated();
+   }   
+  
 }
