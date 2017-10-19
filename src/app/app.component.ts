@@ -8,11 +8,11 @@ import { AuthService } from "./services/auth.service";
 })
 export class AppComponent {
   title: string = "Bookmarks App";
-  isAuthenticated: boolean = false;
+  //isAuthenticated: boolean = false;
 
-   constructor(public authService: AuthService) {
-    //TODO: should we use a store here?
-    this.isAuthenticated = authService.isAuthenticated();
-   }   
-  
+  //  constructor(public authService: AuthService) {
+  //   //TODO: should we use a store here?
+  //   this.isAuthenticated = authService.isAuthenticated();
+  //  }   
+  constructor() {}
 }

@@ -20,7 +20,7 @@ describe("auth service", () => {
 
   it("should logoff", (done) => {
 
-    authService.signout();
+    authService.signoutLocally();
     done();
   });
 

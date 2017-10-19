@@ -32,7 +32,7 @@ export class AuthService {
         (res as TokenResponse)));         
   }
 
-  signout() {
+  signoutLocally() {
     window.localStorage.removeItem(JWT_KEY);        
   }
 }

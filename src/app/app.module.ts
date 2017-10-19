@@ -13,6 +13,7 @@ import { AppComponent } from './app.component';
 import {PageNotFoundComponent} from './pageNotFound.component';
 import { BookmarksService, ApiService, AuthService }  from './services';
 import {reducers} from "./states/reducers";
+import { AuthGuard } from './guards/auth.guard';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import {reducers} from "./states/reducers";
     EffectsModule.forRoot([]),    
   ],
   providers: [ 
+    AuthGuard,
     BookmarksService,
     ApiService, 
     AuthService,
