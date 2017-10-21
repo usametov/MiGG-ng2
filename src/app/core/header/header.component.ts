@@ -1,4 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import {
+  FormGroup,
+  FormControl,
+  ReactiveFormsModule,
+  FormsModule,
+  Validators,
+  FormBuilder
+  } from "@angular/forms";
 
 @Component({
   selector: 'app-header',
@@ -7,8 +15,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() {    
+  searchForm: FormGroup;
+  constructor() {
+    this.searchForm = this.BuildFormGroup();
   }  
+
+  BuildFormGroup() {
+    
+    return new FormGroup({
+      searchTerm: new FormControl('', [Validators.required])      
+    });   
+  }
 
   ngOnInit() {
   }
