@@ -18,3 +18,9 @@
 .footer a:hover {
     text-decoration: underline;
 }
+
+.footer > .container {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+  
