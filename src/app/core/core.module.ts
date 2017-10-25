@@ -7,6 +7,8 @@ import { FooterComponent } from './footer/footer.component';
 import { BookmarksComponent } from './bookmarks/bookmarks-list.component';
 import { BookmarkComponent } from './bookmarks/bookmark.component';
 import { BookmarksStore } from "./../states/bookmarks.store";
+import { UserStore } from "./../states/user.store";
+import { AuthEffects } from "./../states/effects/auth.effects";
 import { StoreModule } from "@ngrx/store";
 import { EffectsModule } from '@ngrx/effects';
 import {BookmarksEffects} from "./../states/effects/bookmarks.effects";
@@ -17,7 +19,8 @@ import {ReactiveFormsModule} from "@angular/forms";
     CommonModule,
     ReactiveFormsModule, 
     RouterModule,     
-    EffectsModule.forFeature([BookmarksEffects]),    
+    EffectsModule.forFeature([BookmarksEffects, AuthEffects]),
+    //EffectsModule.forFeature([AuthEffects])
   ],
   declarations: [ 
     Login,
@@ -26,7 +29,7 @@ import {ReactiveFormsModule} from "@angular/forms";
     BookmarksComponent, 
     BookmarkComponent,    
   ],
-  providers: [BookmarksStore],
+  providers: [BookmarksStore, UserStore],
   exports: [
      Login,
      HeaderComponent,

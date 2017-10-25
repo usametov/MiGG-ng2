@@ -8,6 +8,7 @@ import {
    FormBuilder
    } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
+import { UserStore } from "app/states/user.store";
 
 @Component({
 selector: "login",
@@ -19,9 +20,13 @@ export class Login implements OnInit{
   returnUrl: string;  
   loginForm: FormGroup;
   loading = false;
+  email: string;
+  password: string;
+  errMsg: string;
 
   constructor(
     private route: ActivatedRoute,
+    private store: UserStore,
     private router: Router) { }
     
   ngOnInit(): void {
@@ -36,18 +41,19 @@ export class Login implements OnInit{
 
   login() {
     
-    this.loading = true;    
-    //TODO: call store dispatch here
-    // this.authenticationService.login(this.model.username, this.model.password)
-    //     .subscribe(
-    //         data => {
-    //             this.router.navigate([this.returnUrl]);
-    //         },
-    //         error => {
-    //             this.alertService.error(error);
-    //             this.loading = false;
-    //         });
-    this.router.navigate(['/']);
+    this.loading = true;
+    this.email = this.loginForm.controls["email"].value;
+    this.password = this.loginForm.controls["password"].value;    
+    console.log("email - password:", `${this.email} - ${this.password}`);
+    
+    this.store.requestLogin(this.email, this.password);
+    this.store.getAuthState().subscribe(
+      state => state.data.caseOf({
+        left: err => this.errMsg = err.errorMessage,
+        right: gotToken => {
+          this.router.navigate([this.returnUrl || '/']);
+          return gotToken;}
+      }));    
   }
 
   BuildFormGroup() {

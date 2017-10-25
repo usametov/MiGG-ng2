@@ -4,7 +4,7 @@ import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { Action } from "@ngrx/store";
 import {AuthEffects} from "./auth.effects";
 import { Observable } from 'rxjs/Observable';
-import { ActionTypes, AuthReply, RequestLogin, LoginReply, UserActions } 
+import { ActionTypes, AuthReply, RequestLogin, LoginReplyAction, UserActions } 
   from "../actions/users";
 import { Actions, Effect, toPayload } from '@ngrx/effects';
 import { Either } from 'tsmonad';
@@ -45,7 +45,7 @@ describe ("auth effects", () => {
     (<ReplaySubject<Action>>actions).next(new RequestLogin(payload));
 
     effects.login$.subscribe(result => {
-      expect(result).toEqual(new LoginReply(Either.right(dummyToken)));
+      expect(result).toEqual(new LoginReplyAction(Either.right(dummyToken)));
       expect(authService.setJwt).toHaveBeenCalledTimes(1);
     });
 

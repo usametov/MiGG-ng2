@@ -1,10 +1,9 @@
-import { LoginReply, AuthReply, UserActions, ActionTypes } from "app/states/actions/users";
+import { LoginReplyAction, AuthReply, UserActions, ActionTypes } from "app/states/actions/users";
 import { ResponseStatus } from "app/models/response.status";
 import { TokenResponse } from "app/models/ok-response";
-import { Either } from "tsmonad/lib/src";
+import { Either } from "tsmonad";
 
 export interface AuthState {
-
   data: AuthReply
   status: ResponseStatus;
 }
@@ -14,7 +13,8 @@ export const initialState: AuthState = {
   status: ResponseStatus.Pending
 } 
 
-export function authReducer(state=initialState, action: UserActions) {
+export function authReducer(state=initialState, action: UserActions) 
+: AuthState {
 
   switch(action.type){
     case ActionTypes.REQUEST_LOGIN:

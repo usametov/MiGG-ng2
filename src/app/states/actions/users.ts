@@ -18,11 +18,11 @@ export class RequestLogin implements Action {
   constructor(public payload: UserCredentials) {}
 }
 
-export class LoginReply implements Action {
+export class LoginReplyAction implements Action {
 
   readonly type = ActionTypes.LOGIN_REPLY;
 
   constructor(public payload: AuthReply) {}
 }
 
-export type UserActions = RequestLogin | LoginReply;
+export type UserActions = RequestLogin | LoginReplyAction;
